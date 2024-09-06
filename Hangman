@@ -1,0 +1,45 @@
+import random
+
+logo = r""" _
+| |                                            
+| |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  
+| '_ \ / _` | '_ \ / _` | '_ ` _ \ / _` | '_ \ 
+| | | | (_| | | | | (_| | | | | | | (_| | | | |
+|_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
+                    __/ |                      
+                   |___/                       
+"""
+print(logo)
+
+word_list = ["aardvark", "bison", "cheetah", "dolphin", "elephant", "flamingo",
+    "giraffe", "hippopotamus", "iguana", "jaguar", "kangaroo", "lemur",
+    "meerkat", "narwhal", "octopus", "penguin", "quokka", "rhinoceros",
+    "sloth", "tiger", "urial", "vulture", "walrus", "xerus", "yak", "zebra"]
+
+chosen_word = random.choice(word_list)
+
+placeholder = '_' * len(chosen_word)
+print(placeholder)
+
+guessed_letters = set()
+incorrect_guesses = 0
+max_incorrect_guesses = 6
+
+while incorrect_guesses < max_incorrect_guesses and not all(char in guessed_letters for char in chosen_word):
+    guess = input("Guess a letter: ").lower()
+    if guess in guessed_letters:
+        print(f"You've already guessed '{guess}'.")
+    elif guess in chosen_word:
+        guessed_letters.add(guess)
+        display = ''.join(char if char in guessed_letters else '_' for char in chosen_word)
+        print(display)
+    else:
+        guessed_letters.add(guess)
+        incorrect_guesses += 1
+        print(f"Incorrect guess. You have {max_incorrect_guesses - incorrect_guesses} tries left.")
+
+if incorrect_guesses == max_incorrect_guesses:
+    print(f"Loser! The word was: {chosen_word}")
+else:
+    print(f"Winner! The word was: {chosen_word}")
+print(display)
